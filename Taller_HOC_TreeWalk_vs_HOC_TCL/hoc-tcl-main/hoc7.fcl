@@ -1,0 +1,59 @@
+# hoc stage 7 from "The Unix Programming Environment"
+# (c) 2020 vzvca
+
+%{
+source "hoc7.tac.tab.tcl"
+%}
+
+%option interactive
+
+number  [0-9]+[.]?[0-9]*([eE][-+]?[0-9]+)?
+bltin   abs|cos|acos|cosh|tan|atan|tanh|sin|asin|sinh|log|log10|sqrt|int|exp|floor|ceil|rand|hypot|atan2
+
+%%
+
+{number}  { set ::yylval $yytext; return $::NUMBER }
+{bltin}   { set ::yylval $yytext; return $::BLTIN }
+read      { return $::READ }
+if        { return $::IF }
+else      { return $::ELSE }
+do        { return $::DO }
+while     { return $::WHILE }
+func      { return $::FUNC }
+return    { return $::RETURN }
+break     { return $::BREAK }
+continue  { return $::CONTINUE }
+local     { return $::LOCAL }
+\"([^\"]|\\\")*\" { set ::yylval $yytext; return $::STRING }
+\$[0-9]    { set ::yylval [string index $yytext 1]; return $::ARG }
+[_A-Za-z][_A-Za-z0-9]*(?=\s*\() { set ::yylval $yytext; return $::PROCNAME }
+[_A-Za-z][_A-Za-z0-9]*(?=\s*\+\+) { set ::yylval $yytext; return $::VARNAME }
+[_A-Za-z][_A-Za-z0-9]*(?=\s*--) { set ::yylval $yytext; return $::VARNAME }
+[_A-Za-z][_A-Za-z0-9]* { set ::yylval $yytext; return $::IDENT }
+||        { return $::OR }
+&&        { return $::AND }
+--        { return $::DECR }
+\+\+      { return $::INCR }
+<<=       { return $::LSLASSIGN }
+>>=       { return $::LSRASSIGN }
+==        { return $::EQ }
+~~        { return $::EPSEQ }
+!~        { return $::EPSNE }
+\+=       { return $::ADDASSIGN}
+-=        { return $::SUBASSIGN}
+\*=       { return $::MULASSIGN}
+/=        { return $::DIVASSIGN}
+%=        { return $::MODASSIGN}
+!=        { return $::NE }
+<=        { return $::LE }
+>=        { return $::GE }
+<<        { return $::LSL }
+>>        { return $::LSR }
+<         { return $::LT }
+>         { return $::GT }
+!         { return $::NOT }
+\{        { return $::LBRACKET }
+\}        { return $::RBRACKET }
+\n        { return $::NEWLINE }
+\s        # ignore whitespace
+.         { set ::yylval $yytext; return $yytext }
