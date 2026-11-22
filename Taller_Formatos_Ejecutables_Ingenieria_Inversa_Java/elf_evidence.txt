@@ -1,0 +1,174 @@
+EVIDENCIA ELF64 — procedencia declarada
+=======================================
+Fuente: sample.c (idéntica a la usada en Windows)
+Compilado y medido en entorno Linux x86-64, NO en la estación Windows.
+gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+Compilación: gcc -O0 -g sample.c -o sample_O0
+
+sha256: aceb1690c166d28fea762a0d9f7a207c2eb4d61c0c20ea5366af6da5e60b1762
+bytes : 17944
+
+=== file ===
+sample_O0: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=b2dfbfc4a02e014d34d2a030d253dc12377ff2ed, for GNU/Linux 3.2.0, with debug_info, not stripped
+
+=== readelf -h ===
+ELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF64
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Position-Independent Executable file)
+  Machine:                           Advanced Micro Devices X86-64
+  Version:                           0x1
+  Entry point address:               0x1080
+  Start of program headers:          64 (bytes into file)
+  Start of section headers:          15576 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               64 (bytes)
+  Size of program headers:           56 (bytes)
+  Number of program headers:         13
+  Size of section headers:           64 (bytes)
+  Number of section headers:         37
+  Section header string table index: 36
+
+=== readelf -l (segmentos de carga) ===
+
+Elf file type is DYN (Position-Independent Executable file)
+Entry point 0x1080
+There are 13 program headers, starting at offset 64
+
+Program Headers:
+  Type           Offset             VirtAddr           PhysAddr
+                 FileSiz            MemSiz              Flags  Align
+  PHDR           0x0000000000000040 0x0000000000000040 0x0000000000000040
+                 0x00000000000002d8 0x00000000000002d8  R      0x8
+  INTERP         0x0000000000000318 0x0000000000000318 0x0000000000000318
+                 0x000000000000001c 0x000000000000001c  R      0x1
+      [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]
+  LOAD           0x0000000000000000 0x0000000000000000 0x0000000000000000
+                 0x0000000000000660 0x0000000000000660  R      0x1000
+  LOAD           0x0000000000001000 0x0000000000001000 0x0000000000001000
+                 0x0000000000000231 0x0000000000000231  R E    0x1000
+  LOAD           0x0000000000002000 0x0000000000002000 0x0000000000002000
+                 0x000000000000013c 0x000000000000013c  R      0x1000
+  LOAD           0x0000000000002db0 0x0000000000003db0 0x0000000000003db0
+                 0x0000000000000264 0x0000000000001290  RW     0x1000
+  DYNAMIC        0x0000000000002dc0 0x0000000000003dc0 0x0000000000003dc0
+                 0x00000000000001f0 0x00000000000001f0  RW     0x8
+  NOTE           0x0000000000000338 0x0000000000000338 0x0000000000000338
+                 0x0000000000000030 0x0000000000000030  R      0x8
+  NOTE           0x0000000000000368 0x0000000000000368 0x0000000000000368
+                 0x0000000000000044 0x0000000000000044  R      0x4
+  GNU_PROPERTY   0x0000000000000338 0x0000000000000338 0x0000000000000338
+                 0x0000000000000030 0x0000000000000030  R      0x8
+  GNU_EH_FRAME   0x0000000000002030 0x0000000000002030 0x0000000000002030
+                 0x000000000000003c 0x000000000000003c  R      0x4
+  GNU_STACK      0x0000000000000000 0x0000000000000000 0x0000000000000000
+                 0x0000000000000000 0x0000000000000000  RW     0x10
+  GNU_RELRO      0x0000000000002db0 0x0000000000003db0 0x0000000000003db0
+                 0x0000000000000250 0x0000000000000250  R      0x1
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     
+   01     .interp 
+   02     .interp .note.gnu.property .note.gnu.build-id .note.ABI-tag .gnu.hash .dynsym .dynstr .gnu.version .gnu.version_r .rela.dyn .rela.plt 
+   03     .init .plt .plt.got .plt.sec .text .fini 
+   04     .rodata .eh_frame_hdr .eh_frame 
+   05     .init_array .fini_array .dynamic .got .data .bss 
+   06     .dynamic 
+   07     .note.gnu.property 
+   08     .note.gnu.build-id .note.ABI-tag 
+   09     .note.gnu.property 
+   10     .eh_frame_hdr 
+   11     
+   12     .init_array .fini_array .dynamic .got 
+
+=== readelf -S (secciones) ===
+There are 37 section headers, starting at offset 0x3cd8:
+
+Section Headers:
+  [Nr] Name              Type            Address          Off    Size   ES Flg Lk Inf Al
+  [ 0]                   NULL            0000000000000000 000000 000000 00      0   0  0
+  [ 1] .interp           PROGBITS        0000000000000318 000318 00001c 00   A  0   0  1
+  [ 2] .note.gnu.property NOTE            0000000000000338 000338 000030 00   A  0   0  8
+  [ 3] .note.gnu.build-id NOTE            0000000000000368 000368 000024 00   A  0   0  4
+  [ 4] .note.ABI-tag     NOTE            000000000000038c 00038c 000020 00   A  0   0  4
+  [ 5] .gnu.hash         GNU_HASH        00000000000003b0 0003b0 000024 00   A  6   0  8
+  [ 6] .dynsym           DYNSYM          00000000000003d8 0003d8 0000c0 18   A  7   1  8
+  [ 7] .dynstr           STRTAB          0000000000000498 000498 000094 00   A  0   0  1
+  [ 8] .gnu.version      VERSYM          000000000000052c 00052c 000010 02   A  6   0  2
+  [ 9] .gnu.version_r    VERNEED         0000000000000540 000540 000030 00   A  7   1  8
+  [10] .rela.dyn         RELA            0000000000000570 000570 0000c0 18   A  6   0  8
+  [11] .rela.plt         RELA            0000000000000630 000630 000030 18  AI  6  24  8
+  [12] .init             PROGBITS        0000000000001000 001000 00001b 00  AX  0   0  4
+  [13] .plt              PROGBITS        0000000000001020 001020 000030 10  AX  0   0 16
+  [14] .plt.got          PROGBITS        0000000000001050 001050 000010 10  AX  0   0 16
+  [15] .plt.sec          PROGBITS        0000000000001060 001060 000020 10  AX  0   0 16
+  [16] .text             PROGBITS        0000000000001080 001080 0001a1 00  AX  0   0 16
+  [17] .fini             PROGBITS        0000000000001224 001224 00000d 00  AX  0   0  4
+  [18] .rodata           PROGBITS        0000000000002000 002000 00002d 00   A  0   0 16
+  [19] .eh_frame_hdr     PROGBITS        0000000000002030 002030 00003c 00   A  0   0  4
+  [20] .eh_frame         PROGBITS        0000000000002070 002070 0000cc 00   A  0   0  8
+  [21] .init_array       INIT_ARRAY      0000000000003db0 002db0 000008 08  WA  0   0  8
+  [22] .fini_array       FINI_ARRAY      0000000000003db8 002db8 000008 08  WA  0   0  8
+  [23] .dynamic          DYNAMIC         0000000000003dc0 002dc0 0001f0 10  WA  7   0  8
+  [24] .got              PROGBITS        0000000000003fb0 002fb0 000050 08  WA  0   0  8
+  [25] .data             PROGBITS        0000000000004000 003000 000014 00  WA  0   0  8
+  [26] .bss              NOBITS          0000000000004020 003014 001020 00  WA  0   0 32
+  [27] .comment          PROGBITS        0000000000000000 003014 00002d 01  MS  0   0  1
+  [28] .debug_aranges    PROGBITS        0000000000000000 003041 000030 00      0   0  1
+  [29] .debug_info       PROGBITS        0000000000000000 003071 0001a3 00      0   0  1
+  [30] .debug_abbrev     PROGBITS        0000000000000000 003214 000118 00      0   0  1
+  [31] .debug_line       PROGBITS        0000000000000000 00332c 0000be 00      0   0  1
+  [32] .debug_str        PROGBITS        0000000000000000 0033ea 00011d 01  MS  0   0  1
+  [33] .debug_line_str   PROGBITS        0000000000000000 003507 000076 01  MS  0   0  1
+  [34] .symtab           SYMTAB          0000000000000000 003580 0003d8 18     35  18  8
+  [35] .strtab           STRTAB          0000000000000000 003958 00020f 00      0   0  1
+  [36] .shstrtab         STRTAB          0000000000000000 003b67 00016a 00      0   0  1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
+  L (link order), O (extra OS processing required), G (group), T (TLS),
+  C (compressed), x (unknown), o (OS specific), E (exclude),
+  D (mbind), l (large), p (processor specific)
+
+=== readelf -d (dependencias) ===
+
+Dynamic section at offset 0x2dc0 contains 27 entries:
+  Tag        Type                         Name/Value
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+ 0x000000000000000c (INIT)               0x1000
+ 0x000000000000000d (FINI)               0x1224
+ 0x0000000000000019 (INIT_ARRAY)         0x3db0
+ 0x000000000000001b (INIT_ARRAYSZ)       8 (bytes)
+ 0x000000000000001a (FINI_ARRAY)         0x3db8
+ 0x000000000000001c (FINI_ARRAYSZ)       8 (bytes)
+ 0x000000006ffffef5 (GNU_HASH)           0x3b0
+ 0x0000000000000005 (STRTAB)             0x498
+ 0x0000000000000006 (SYMTAB)             0x3d8
+ 0x000000000000000a (STRSZ)              148 (bytes)
+ 0x000000000000000b (SYMENT)             24 (bytes)
+ 0x0000000000000015 (DEBUG)              0x0
+ 0x0000000000000003 (PLTGOT)             0x3fb0
+ 0x0000000000000002 (PLTRELSZ)           48 (bytes)
+ 0x0000000000000014 (PLTREL)             RELA
+ 0x0000000000000017 (JMPREL)             0x630
+ 0x0000000000000007 (RELA)               0x570
+ 0x0000000000000008 (RELASZ)             192 (bytes)
+ 0x0000000000000009 (RELAENT)            24 (bytes)
+ 0x000000000000001e (FLAGS)              BIND_NOW
+ 0x000000006ffffffb (FLAGS_1)            Flags: NOW PIE
+ 0x000000006ffffffe (VERNEED)            0x540
+ 0x000000006fffffff (VERNEEDNUM)         1
+ 0x000000006ffffff0 (VERSYM)             0x52c
+ 0x000000006ffffff9 (RELACOUNT)          3
+ 0x0000000000000000 (NULL)               0x0
+
+=== nm (simbolos del programa) ===
+0000000000002010 R banner
+0000000000004010 D bias
+00000000000011ae T main
+0000000000001169 T transform
+0000000000004040 B workspace
